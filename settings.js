@@ -43,7 +43,7 @@ function submitTemp() {
     return;
   }
   // Check if the input has no more than one decimal place
-  else if (newTemp % 1 !== 0 && newTemp % 1 !== 0.1) {
+  else if (newTemp.toString().length > 4 ) {
     alert("Please enter a temperature with no more than one decimal place");
     return;
   }
