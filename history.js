@@ -96,7 +96,7 @@ function getTempHistory() {
   const dates = getDurationDates(duration);
   const graphType = document.getElementById('tempGraphType').value.trim();
 
-  ws = new WebSocket("ws://localhost:300/socket/"); //"wss://raspiwebsocket.duckdns.org/socket/"
+  ws = new WebSocket("wss://raspiwebsocket.duckdns.org/socket/");
 
   ws.onopen = () => {
     ws.send(JSON.stringify({
