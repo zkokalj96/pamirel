@@ -62,6 +62,8 @@ function submitTemp() {
     if (message.type === "changing_set_temp" && message.success) {
       document.getElementById("setting_successful").innerHTML = `
       <h4>Setting changes stored successfully!</h4>
+      <p>Temperature for device ${id} is set to ${newTemp} °C</p>
+      <p>Expect the changes to be implemented in the next 5 minutes</p>
       `;
     } else {
       alert(message.reason)
