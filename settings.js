@@ -30,7 +30,7 @@ Alternatively, it displays the error and reason
 function submitTemp() {
   const newTemp = document.getElementById('new_temp').value.trim();
   const id = document.getElementById('esp_id').value.trim();
-  ws = new WebSocket("ws://localhost:300/socket/"); // "wss://raspiwebsocket.duckdns.org/socket/"
+  ws = new WebSocket("wss://raspiwebsocket.duckdns.org/socket/");
 
   if (!newTemp) {
     alert("Please enter a temperature");
