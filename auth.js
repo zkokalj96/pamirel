@@ -11,7 +11,7 @@ function login() {
   }
 
   // Initialising websocket communication with the url where its hosted
-  ws = new WebSocket("ws://localhost:300/socket/");
+  ws = new WebSocket("wss://raspiwebsocket.duckdns.org/socket/");
 
 
   // When connection is established sends the credentials to check if they are valid
