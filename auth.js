@@ -11,7 +11,8 @@ function login() {
   }
 
   // Initialising websocket communication with the url where its hosted
-  ws = new WebSocket("wss://raspiwebsocket.duckdns.org/socket/"); //"wss://raspiwebsocket.duckdns.org/socket/"
+  ws = new WebSocket("ws://localhost:300/socket/");
+
 
   // When connection is established sends the credentials to check if they are valid
   ws.onopen = () => {
@@ -24,36 +25,54 @@ function login() {
 
   // When a message is received, checks if it is a login message and if it was successful
   // If it was, displays the thermostat state and options to view history or set temperature
-  ws.onmessage = (recievedMessage) => {
-    const message = JSON.parse(recievedMessage.data);
+  ws.onmessage = (receivedMessage) => {
+    const message = JSON.parse(receivedMessage.data);
     if (message.type === "login" && message.success) {
-      const latestData = message.latest_data;
+     
+      const latestData = message.latest_data
       
-      const state = (latestData.status_on == 1) ? `ON, and it is ${(latestData.heating) ? "heating" : "cooling"}` : "OFF";
-      
-      document.getElementById('login_successful').innerHTML = `
-      <div class="card">
-        <h2>Login successful!</h2>
-        <h3>Thermostat ${id} is currently ${state} </h3>
-          <p>Current Temperature: ${latestData.temp} °C</p>
-          <p>Set Temperature: ${latestData.set_temp} °C</p>
-          <p>Pressure: ${latestData.pressure} kPa</p>
-          <p>Ventilator speed: ${latestData.ventilator} / 3</p>
-          <p>Set Ventilator speed: ${latestData.set_ventilator} / 3</p>
-          <p>At ${formatDateForUser(latestData.recorded)}</p>
-        <div class="actions">
-          <button onclick="historyOptions()">Show History</button>
-          <button onclick="setTemp()">Set Temperature</button>
-        </div>
-      </div>
-      `;
+      if (latestData === undefined) {
+        // If no data is available, display a message
+        document.getElementById('login_successful').innerHTML = `
+          <div class="card">
+            <h2>Login successful!</h2>
+            <h3>No data available for Thermostat ${id}.</h3>
+            <p>Ensure your thermostat is <a style="color: rgb(102, 171, 255);"
+            href="my-thermostat-documentation.html">connected to WiFi</a> and check back later</p>
+            <div class="actions">
+              <button onclick="historyOptions()">Show History</button>
+              <button onclick="setTemp()">Set Temperature</button>
+            </div>
+          </div>
+          `;
+      } else {
+        const state = (latestData.status_on == 1) ? `ON, and it is ${(latestData.heating) ? "heating" : "cooling"}` : "OFF";
+        // Display the login successful message with the latest data
+        document.getElementById('login_successful').innerHTML = `
+          <div class="card">
+            <h2>Login successful!</h2>
+            <h3>Thermostat ${id} is currently ${state} </h3>
+              <p>Current Temperature: ${latestData.temp} °C</p>
+              <p>Set Temperature: ${latestData.set_temp} °C</p>
+              <p>Pressure: ${latestData.pressure} kPa</p>
+              <p>Ventilator speed: ${latestData.ventilator} / 3</p>
+              <p>Set Ventilator speed: ${latestData.set_ventilator} / 3</p>
+              <p>At ${formatDateForUser(latestData.recorded)}</p>
+            <div class="actions">
+              <button onclick="historyOptions()">Show History</button>
+              <button onclick="setTemp()">Set Temperature</button>
+            </div>
+          </div>
+          `;
+      }
     } else {
       document.getElementById('login_successful').innerHTML = `
       <div class="card">
         <h2>Login failed!</h2>
         <p>Double-check ID and password.</p>
       </div>
-      `;}
+      `;
+    }
   };
 
   ws.onerror = (err) => {

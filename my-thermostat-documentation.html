@@ -1,0 +1,178 @@
+<DOCTYPE html>
+	<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>My Thermostat</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+
+	<body>
+
+		<body>
+			<img src=logo.png class="background-image" loading="eager">
+			<div class="content">
+				<nav>
+					<ul>
+						<li><a href="index.html">greetings</a></li>
+						<li><a href="index.html">and</a></li>
+						<li><a href="index.html">salutations</a></li>
+						<div class="nav-my-thermostat">
+							<li><a href="my-thermostat.html">My Thermostat</a></li>
+							<li><a href="my-thermostat-documentation.html">My Thermostat Documentation</a></li>
+						</div>
+					</ul>
+				</nav>
+
+				<section class="documentation card" style="margin-top: 70px; max-width: 700px;">
+					<h2>My Thermostat</h2>
+					<h4><em>This is a service provided for Pamirel thermostats version X</em></h4>
+					<p>It allows you to:</p>
+					<ul>
+						<li>Access the <strong>history</strong> of data collected by the thermostat in your home</li>
+						<li>Remotely <strong>set your thermostat's temperature</strong> from anywhere!</li>
+					</ul>
+					<p>For the service to work, you must first connect your thermostat device to your <strong>local WiFi
+							network</strong>!</p>
+					<div class="rules">
+						<p><em>To use the service you will need the documentation which came with your thermostat, as it conatians
+								the password for "LCD Pamirel thermostat" as well as your personal ID and password.
+								If you have lost it, please <a href="#contacts">contact us</a>!</em></p>
+					</div>
+					<p>Here you will find documentation on how to:</p>
+					<ul>
+						<li><a href="#wifi-config-page">Access the WiFi Configuration page</a></li>
+						<li><a href="#connect-to-wifi">Connect your thermostat to your local WiFi network</a></li>
+						<li><a href="#logging-in">Log in with your credentials</a></li>
+						<li><a href="#resetting-wifi">Reset the WiFi connection with new credentials</a></li>
+					</ul>
+				</section>
+				<section class="documentation card section">
+					<h1 id="wifi-config-page">Accessing WiFi Configuration page</h1>
+					<p>To access the WiFi configuration page of your thermostat, you need to connect to its access point.</p>
+					<p>Do the following:</p>
+					<ul>
+						<li>Use your phone or computer to connect to <strong>"LCD Pamirel Thermostat"</strong>, with the
+							credentials provided in your documentation</li>
+						<li>It should appear among the available WiFi networks if you are close enough to your thermostat</li>
+					</ul>
+					<img src="wifi-page-pictures/connected-to-AP.png" alt="Connected to LCD Pamirel Thermostat"
+						style="width: 300px;" class="wifi-image">
+					<div class="rules">
+						<p><em>If it doesn't appear, try resetting the thermostat</em></p>
+					</div>
+					<ul>
+						<li>Once connected, scan the QR code in your documentation or open a web browser and go to
+							<strong>192.168.4.1</strong>, where a webpage should appear</li>
+					</ul>
+					<img src="wifi-page-pictures/full-page.png" alt="Wifi Configuration Page" class="wifi-image">
+					<div class="rules">
+						<p><em>If no page is displayed, double-check that you are connected to the "LCD Pamirel Thermostat" access
+								point</em></p>
+					</div>
+					<ul>
+						<li>Then follow the instructions in the <a href="#connecting-to-wifi">Connecting to WiFi</a> section to connect to your local network (SSID)
+						</li>
+					</ul>
+				</section>
+
+				<section class="documentation card section" id="connecting-to-wifi">
+					<h1>Connecting to WiFi</h1>
+					<p>Once you have accessed the WiFi configuration page, you can connect your thermostat to your local WiFi
+						network.</p>
+					<p>To do this, follow these steps:</p>
+					<ul>
+						<li>Choose the corrected network from the <strong>Available Networks</strong> and click <strong>Select</strong></li>
+					</ul>
+					<img src="wifi-page-pictures/select-ssid.png" alt="Selecting Network" class="wifi-image">
+					<div class="rules">
+						<p><em>Note that if you cannot find your network, you can click <strong>Rescan Networks</strong> to refresh the list</em>
+						</p>
+					</div>
+					<ul>
+						<li>This will partially complete the <strong>Connect to Network</strong> form</li>
+						<li>Input the network password and click <strong>Connect</strong></li>
+						<li>You should see the following page</li>
+					</ul>
+					<img src="wifi-page-pictures/connecting-screen.png" alt="Connecting to Network" class="wifi-image">
+					<div class="rules">
+						<p><em>Rebooting the thermostat also causes "LCD Pamirel Thermostat" to reset, meaning you have to reconnect
+								to it if you wish to view the <strong>Connection status</strong>.
+								If a connection is successfully established, the page will only be available for 5 minutes after restarting the
+								thermostat</em></p>
+					</div>
+					<ul>
+						<li>To double-check that the connection was successful, you can click <strong>connection status</strong> </li>
+						<li>It should show the network name and signal strenght</li>
+					</ul>
+					<img src="wifi-page-pictures/connection-status.png" alt="Connected to Network" class="wifi-image">
+					<div class="rules">
+						<p><em>If your thermostat is reset it will reconnect to this network, but it can only remeber one network at
+								a time.
+								If you wish to connect to a different network you can follow the instructions in the <a href="#resetting-wifi">Resetting WiFi</a> section</em></p>
+					</div>
+					<ul>
+						<li>After this, you can Log in to My Thermostat with your thermostats ID. For help with this, see the <a href="#logging-in">Logging in</a> section</li>
+					</ul> 
+				</section>
+
+				<section class="documentation card section" id="logging-in">
+					<h1>Logging in</h1>
+					<p>Once you have connected your thermostat to your local WiFi network, you can log in to the service.</p>
+					<p>To do this, follow these steps:</p>
+					<ul>
+						<li>This is done on the website you are on now</li>
+						<li>In the navbar at the top, click <strong>My Thermostat</strong></li>
+						<li>On this page, you will find a log in form</li>
+						<li>Log in using your thermostat ID and password, both of which you can find in the documentation which came
+							with your thermostat</li>
+					</ul>
+					<img src="wifi-page-pictures/login-form.png" alt="Login Form" class="wifi-image">
+					<ul>
+						<li>After logging in, you will be shown the latest recorded data as well as the options to "Set Temperature"
+							and view "History"</li>
+						<li>Clicking <strong>Set Temperature</strong> will allow you to set the temperature of your thermostat
+							remotely</li>
+						<li>Clicking <strong>History</strong> will show you the types of history which can be viewed and the
+							duration of displayed data</li>
+						</ul>
+						<div class="rules">
+							<p><em>Note that the data is only available for the last year</em></p>
+						</div>
+						<ul>
+						<li>After selecting the type of history, click <strong>Temperature/Signal history</strong> to view the data plotted with
+							time</li>
+						<li>Use these features at your liesure!</li>
+					</ul>
+					<div  class="rules">
+						<p><em>To log out, you simply leave or refresh the page</em></p>
+					</div>
+				</section>
+
+				<section class="documentation card section" id="resetting-wifi">
+					<h1>Resetting WiFi</h1>
+					<p>If you need to reset the WiFi connection of your thermostat, you can do so by:</p>
+					<ul>
+						<li>Pressing the reset button on the thermostat for a few seconds</li>
+						<li>This will make the thermostat host "LCD Pamirel Thermostat" <strong>for 5 minutes</strong></li>
+						<li>During this time, you can connect to it using your phone or computer and visit
+							<strong>192.168.4.1</strong></li>
+						<li>In this time you can click <strong>Forget Saved Network</strong> under <strong>Connection status</strong></li>
+						<li>After which this page should appear</li>
+					</ul>
+					<img src="wifi-page-pictures/forgotten-screen.png" alt="Forgetting Saved Network" class="wifi-image">
+					<div class="rules">
+						<p><em>Rebooting the thermostat also causes "LCD Pamirel Thermostat" to reset, meaning you have to reconnect
+								to it,
+								but with no credentials to connect with, the webpage will be available <strong>indefinitely</strong>
+								(not just 5 minutes)</em></p>
+					</div>
+					<ul>
+						<li>After successfully returning to the config page, you can follow the instructions in the <a href="#connecting-to-wifi">Connecting to WiFi</a> section to connect to a new WiFi network</li>
+					</ul>
+				</section>
+			</div>
+		</body>
+
+	</html>

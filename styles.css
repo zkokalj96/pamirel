@@ -16,16 +16,38 @@ body {
 }
 
 .background-image {
-  opacity: 0.6;
   position: fixed;
   left: 0;
   top: 60px; 
   width: 100vw;
-  height: calc(100vh - 60px); /* reduce height for navbar */
+  height: calc(100vh - 60px);
   z-index: -1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  
+  /* Improved image display */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Better opacity handling */
+  opacity: 0.6;
+  
+  /* Prevent distortion on mobile */
+  object-fit: cover;
+  
+  /* Performance optimization */
+  image-rendering: -webkit-optimize-contrast; /* Safari */
+  image-rendering: crisp-edges; /* Standard */
+  will-change: transform; /* Helps with performance */
+}
+
+@media (max-width: 768px) {
+  .background-image {
+    /* Slightly reduce opacity on mobile for better readability */
+    opacity: 0.5;
+    
+    /* Optional: Use a different cropped version for mobile */
+    /* background-image: url('mobile-optimized-image.jpg'); */
+  }
 }
 
 nav {
@@ -39,7 +61,6 @@ nav ul {
   list-style-type: none;
   background-color: #56c0ee;
   display: flex;
-  justify-content: flex-start;
   padding: 0;
   height: 60px;
   align-items: center;
@@ -47,6 +68,12 @@ nav ul {
 
 nav ul li {
   margin: 0 10px;
+}
+
+.nav-my-thermostat {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
 }
 
 nav ul li a {
@@ -76,11 +103,43 @@ nav ul li a:hover {
   max-width: 600px;
 }
 
-.hello {
+.instruction {
+  text-align: center;
   padding: 20px;
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.instruction h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.instruction h1 {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.instruction h4 {
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.instruction p {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.instruction ul {
+  padding-left: 20px;
+  text-align: left;
+}
+
+.instruction ul li {
+  display: list-item;
+  list-style-type: disc;
+  margin: 20px 0;
 }
 
 .login {
@@ -90,16 +149,12 @@ nav ul li a:hover {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.login h2 {
-  margin-bottom: 20px;
-}
-
 .login form {
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
 }
 
 .login input {
@@ -309,23 +364,23 @@ nav ul li a:hover {
   text-align: left;
 }
 
-.settings .rules h4 {
+.rules h4 {
   font-size: 18px;
   margin-bottom: 0;
 }
 
-.settings .rules ul {
+.rules ul {
   list-style-type: disc;
   text-align: left;
   padding: 10px;
   margin: 0 0;
 }
 
-.settings .rules ul li {
+.rules ul li {
   align-items: normal;
 }
 
-.settings .rules ul p {
+.rules ul p {
   font-size: 15px;
 }
 
@@ -344,9 +399,52 @@ nav ul li a:hover {
   float: right;
 }
 
-h1 {
-  font-size: 70px;
-  padding: 30px 0;
+.documentation {
+  max-width: 800px;
+}
+
+.documentation h1 {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.documentation h4 {
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.documentation ul {
+  padding-left: 20px;
+  text-align: left;
+}
+
+.documentation ul li {
+  display: list-item;
+  list-style-type: disc;
+  margin: 20px 0;
+}
+
+.documentation .rules {
+  text-align: center;
+  margin-top: 20px;
+  padding: 5px 10px;
+  width: 80%;
+}
+
+.documentation .rules p {
+  font-size: 15px;
+}
+
+.documentation a {
+  color: rgb(102, 171, 255);
+}
+
+.wifi-image {
+  border-color: #333;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 6px;
+  width: 600px;
 }
 
 p {

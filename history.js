@@ -5,9 +5,8 @@ function historyOptions() {
         <div class="history-section">
           <h4>History Options</h4>
           <p>Choose a history type and duration to view.</p>
-
           <div class="history-row">
-            <button onclick="getTempHistory()">Temperature History</button>
+            <button onclick="getHistory('temp')">Temperature History</button>
             <select class="styled-select" id="tempDuration">
               <option value="week">Past Week</option>
               <option value="month">Past Month</option>
@@ -22,10 +21,9 @@ function historyOptions() {
           </div>
           <p class="description">View the real (measured) temperature, set temperature and pressure over time.</p>
         </div>
-
         <div class="history-section">
           <div class="history-row">
-            <button onclick="getSignalHistory()">Signal History</button>
+            <button onclick="getHistory('signal')">Signal History</button>
             <select class="styled-select" id="signalDuration">
               <option value="week">Past Week</option>
               <option value="month">Past Month</option>
@@ -44,75 +42,30 @@ function historyOptions() {
       `;
 }
 
-// Gets the history of signal strength for the selected type and duration
-function getSignalHistory() {
+// Gets the history for the selected type and duration
+function getHistory(dataType) {
+  // Sets different constant names based on which button was pressed
   const id = document.getElementById('esp_id').value.trim();
-  const duration = document.getElementById('signalDuration').value.trim();
+  const duration = document.getElementById(`${dataType}Duration`).value.trim();
   const dates = getDurationDates(duration)
-  const graphType = document.getElementById('signalGraphType').value.trim();
+  const graphType = document.getElementById(`${dataType}GraphType`).value.trim();
 
-  ws = new WebSocket("wss://raspiwebsocket.duckdns.org/socket/");
-
-  ws.onopen = () => {
-    ws.send(JSON.stringify({
-      type: "signal_history",
-      starting_date: dates[0],
-      ending_date: dates[1],
-      column_list: [graphType, 'recorded'],
-      esp_id: id
-    }));
-  }
-
-  ws.onmessage = (recievedMessage) => {
-    const message = JSON.parse(recievedMessage.data);
-    if (message.type === "signal_history" && message.success) {
-      const data = message.data;
-      document.getElementById('displayed_history').innerHTML = `
-      <div class="chart card">
-        <div id="chart"></div>  
-      </div>`;
-
-      makeChart(data, graphType).then(chart => chart.render());
-    }
-    else if (!(message.success) && message.reason === "No data found") {
-      console.log("No data found for signal history request");
-      document.getElementById('displayed_history').innerHTML = `
-      <div class="card">
-        <h2>No data found for the selected duration.</h2>
-      </div>`;
-    }
-  }
-
-  ws.onerror = (err) => {
-    console.error("WebSocket error", err);
-    alert("Connection error, try again later");
-  };
-}
-
-// Gets the history of temperature for the selected type and duration
-function getTempHistory() {
-  const id = document.getElementById('esp_id').value.trim();
-  const duration = document.getElementById('tempDuration').value.trim();
-  const dates = getDurationDates(duration);
-  const graphType = document.getElementById('tempGraphType').value.trim();
-
-  ws = new WebSocket("wss://raspiwebsocket.duckdns.org/socket/");
+  ws = new WebSocket("ws://localhost:300/socket/");
 
   ws.onopen = () => {
     ws.send(JSON.stringify({
-      type: "temperature_history",
+      type: "history",
       starting_date: dates[0],
       ending_date: dates[1],
       column_list: [graphType, 'recorded'],
-      esp_id: id
+      esp_id: id,
+      password: document.getElementById('password').value.trim()
     }));
   }
 
-  ws.onmessage = async (recievedMessage) => {
-    const message = JSON.parse(recievedMessage.data);
-
-    // If the inquery was successful and data was received, it displays the data as a chart
-    if (message.type === "temperature_history" && message.success) {
+  ws.onmessage = (receivedMessage) => {
+    const message = JSON.parse(receivedMessage.data);
+    if (message.type === "history" && message.success) {
       const data = message.data;
       document.getElementById('displayed_history').innerHTML = `
       <div class="chart card">
@@ -122,13 +75,21 @@ function getTempHistory() {
       makeChart(data, graphType).then(chart => chart.render());
     }
     else {
+      let Type
+      (dataType == 'signal') ? Type = 'Signal': Type = 'Temperature'
+      // If there was an error, displays the error message
       document.getElementById('displayed_history').innerHTML = `
-      <div class="card">
-        <h2>Temperature History</h2>
-        <p>No data found for the selected duration.</p>
-      </div>`;
+        <div class="card">
+          <h2>Error getting ${Type} History</h2>
+          <p>${message.reason}</p>
+        </div>`;
     }
   }
+
+  ws.onerror = (err) => {
+    console.error("WebSocket error", err);
+    alert("Connection error, try again later");
+  };
 }
 
 // Hides the history options and displayed history
@@ -172,8 +133,9 @@ function formatDateForMySQL(date) {
 
 // Function to create a chart using ApexCharts
 // It takes the data and type of chart as parameters, it returns a chart object
-// The type can be "realTemp", "setTemp", "pressure", "wifi" or "rf"
+// The type can be "temp", "set_temp", "pressure", "wifi_signal" or "rf_signal"
 async function makeChart(data, type) {
+  // Based on the desired type, the chart uses different labels and colors
   let chartName, chartColor;
   switch (type) {
     case "temp":
@@ -197,12 +159,12 @@ async function makeChart(data, type) {
       chartColor = "#8eff91ff"; 
       break;
   }
-  const options = {
+  const options = { // Chart settings 
       series: [{
         name: chartName,
         data: data.map(item => ({
-          x: item.recorded,
-          y: item[type]
+          x: item.recorded, // timestamp
+          y: item[type] // the data at that timestamp
         }))
       }],
       chart: {
@@ -219,7 +181,8 @@ async function makeChart(data, type) {
         type: 'datetime'
       }
     };
-
+    // The chart is created as an instance of the ApexCharts class, with it's location in the document and settings
     var chart = new ApexCharts(document.querySelector("#chart"), options);
     return chart;
 }
+

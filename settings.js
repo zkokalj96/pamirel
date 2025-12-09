@@ -7,7 +7,9 @@ function setTemp() {
         <h4>Temperature should be:</h4>
         <ul>
           <li><p>In the range 10°C - 30°C</p></li>
-          <li><p>Set to no more than one decimal place (<del>14.22</del> 14.2 <i style="font-size:20px" class="fa">&#10004;</i> ) </p></li>
+          <li>
+          <p>Set to no more than one decimal place (<del>14.22</del> 14.2 <i style="font-size:20px" class="fa">&#10004;</i> ) </p>
+          </li>
         </ul>
       </div>
       <p class="description">Enter the desired temperature:</p>
@@ -31,7 +33,7 @@ function submitTemp() {
   const newTemp = document.getElementById('new_temp').value.trim();
   const id = document.getElementById('esp_id').value.trim();
   
-  ws = new WebSocket("wss://raspiwebsocket.duckdns.org/socket/");
+  ws = new WebSocket("ws://localhost:300/socket/");
 
   if (!newTemp) {
     alert("Please enter a temperature");
@@ -53,12 +55,13 @@ function submitTemp() {
     ws.send(JSON.stringify({
       type: "changing_set_temp",
       esp_id: id,
+      password: document.getElementById('password').value.trim(),
       new_temp: parseFloat(newTemp)
     }));
   };
 
-  ws.onmessage = (recievedMessage) => {
-    const message = JSON.parse(recievedMessage.data);
+  ws.onmessage = (receivedMessage) => {
+    const message = JSON.parse(receivedMessage.data);
     if (message.type === "changing_set_temp" && message.success) {
       document.getElementById("setting_successful").innerHTML = `
       <h4>Setting changes stored successfully!</h4>
@@ -66,7 +69,10 @@ function submitTemp() {
       <p>Expect the changes to be implemented in the next 5 minutes</p>
       `;
     } else {
-      alert(message.reason)
+      document.getElementById("setting_successful").innerHTML = `
+      <h4>Error setting temperature</h4>
+      <p>${message.reason}</p>
+      `;
     }
   };
 }
