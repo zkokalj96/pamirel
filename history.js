@@ -50,7 +50,7 @@ function getHistory(dataType) {
   const dates = getDurationDates(duration)
   const graphType = document.getElementById(`${dataType}GraphType`).value.trim();
 
-  ws = new WebSocket("ws://localhost:300/socket/");
+  ws = new WebSocket("wss://raspiwebsocket.duckdns.org/socket/");
 
   ws.onopen = () => {
     ws.send(JSON.stringify({
