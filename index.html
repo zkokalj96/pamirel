@@ -14,24 +14,26 @@
   <img src=logo.png class="background-image" alt="">
 <div class="content">
   <nav>
-    <!-- Mobile Hamburger Button (only visible on mobile) -->
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+  <!-- Hamburger Button -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  
+  <!-- Menu - REMOVED ID, using class instead -->
+  <ul class="nav-menu">
+    <li><a href="index.html">greetings</a></li>
+    <li><a href="index.html">and</a></li>
+    <li><a href="index.html">salutations</a></li>
     
-    <ul id="nav-menu">
-      <li><a href="index.html">greetings</a></li>
-      <li><a href="index.html">and</a></li>
-      <li><a href="index.html">salutations</a></li>
-      
-      <div class="nav-my-thermostat">
-        <li><a href="my-thermostat.html">My Thermostat</a></li>
-        <li><a href="my-thermostat-documentation.html">My Thermostat Documentation</a></li>
-      </div>
-    </ul>
-  </nav>
+    <!-- Using span instead of div inside ul -->
+    <span class="nav-my-thermostat">
+      <li><a href="my-thermostat.html">My Thermostat</a></li>
+      <li><a href="my-thermostat-documentation.html">My Thermostat Documentation</a></li>
+    </span>
+  </ul>
+</nav>
 
 </div>
 <script>
