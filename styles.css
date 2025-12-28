@@ -45,18 +45,15 @@ nav {
   position: fixed;
   top: 0;
   z-index: 1000;
-  background-color: #56c0ee; /* Added background to nav */
 }
 
-/* Desktop Styles (unchanged from yours) */
 nav ul {
   list-style-type: none;
+  background-color: #56c0ee;
   display: flex;
   padding: 0;
   height: 60px;
   align-items: center;
-  margin: 0;
-  background-color: #56c0ee;
 }
 
 nav ul li {
@@ -79,25 +76,6 @@ nav ul li a {
 nav ul li a:hover {
   border-radius: 5px;
   background-color: rgb(47, 158, 255);
-}
-
-/* Hamburger Button - Hidden on Desktop */
-.hamburger {
-  display: none;
-  cursor: pointer;
-  padding: 15px;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.hamburger span {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  margin: 5px 0;
-  transition: 0.3s;
 }
 
 /* Mobile Styles */
