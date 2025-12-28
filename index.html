@@ -14,6 +14,12 @@
   <img src=logo.png class="background-image" alt="">
 <div class="content">
   <nav>
+    <!-- HAMBURGER BUTTON -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <ul>
       <li><a href="index.html">greetings</a></li>
       <li><a href="index.html">and</a></li>
@@ -28,33 +34,14 @@
 </div>
 <script>
   function toggleMenu() {
-    const menu = document.getElementById('nav-menu');
+    const menu = document.querySelector('nav ul');
     const hamburger = document.querySelector('.hamburger');
     
-    // Toggle menu visibility
-    menu.classList.toggle('active');
-    hamburger.classList.toggle('active');
-    
-    // Close menu when clicking a link (optional)
-    const links = menu.querySelectorAll('a');
-    links.forEach(link => {
-      link.addEventListener('click', () => {
-        menu.classList.remove('active');
-        hamburger.classList.remove('active');
-      });
-    });
-  }
-
-  // Close menu when clicking outside (optional)
-  document.addEventListener('click', (event) => {
-    const menu = document.getElementById('nav-menu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-      menu.classList.remove('active');
-      hamburger.classList.remove('active');
+    if (menu && hamburger) {
+      menu.classList.toggle('active');
+      hamburger.classList.toggle('active');
     }
-  });
+  }
 </script>
 </body>
 

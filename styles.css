@@ -78,15 +78,89 @@ nav ul li a:hover {
   background-color: rgb(47, 158, 255);
 }
 
-/* Mobile Styles */
+
+/* ========== MOBILE NAVBAR ========== */
+
+/* Fix HTML structure issue - make div behave like flex container */
+nav ul .nav-my-thermostat {
+  display: flex;
+  margin-left: auto;
+}
+
+/* Hamburger button - hidden on desktop */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  padding: 18px 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
   /* Show hamburger on mobile */
   .hamburger {
     display: block;
-    z-index: 1001;
   }
   
-  /* Transform hamburger to X when active */
+  /* Hide regular menu on mobile by default */
+  nav ul {
+    display: none;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    padding: 20px 0;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  
+  /* Show menu when active */
+  nav ul.active {
+    display: flex;
+  }
+  
+  /* Stack items vertically */
+  nav ul li,
+  .nav-my-thermostat {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .nav-my-thermostat {
+    flex-direction: column;
+    margin-left: 0;
+    justify-content: center;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+  
+  /* Remove the flex-grow on mobile */
+  .nav-my-thermostat {
+    flex-grow: 0;
+  }
+  
+  /* Adjust link padding */
+  nav ul li a {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  /* Hamburger animation */
   .hamburger.active span:nth-child(1) {
     transform: rotate(-45deg) translate(-5px, 6px);
   }
@@ -97,49 +171,6 @@ nav ul li a:hover {
   
   .hamburger.active span:nth-child(3) {
     transform: rotate(45deg) translate(-5px, -6px);
-  }
-  
-  /* Hide menu by default on mobile */
-  nav ul {
-    display: none;
-    flex-direction: column;
-    height: auto;
-    width: 100%;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    padding: 20px 0;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Show menu when active */
-  nav ul.active {
-    display: flex;
-  }
-  
-  /* Stack all items vertically on mobile */
-  nav ul li,
-  .nav-my-thermostat {
-    width: 100%;
-    margin: 0;
-    display: block;
-    text-align: center;
-  }
-  
-  .nav-my-thermostat {
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 10px;
-  }
-  
-  nav ul li a {
-    padding: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Remove hover effect on mobile tap */
-  nav ul li a:hover {
-    background-color: rgba(47, 158, 255, 0.8);
   }
 }
 
