@@ -40,48 +40,129 @@ body {
   will-change: transform; /* Helps with performance */
 }
 
-@media (max-width: 768px) {
-  nav ul {
-    height: auto;
-    flex-wrap: wrap;
-    padding: 10px 0;
-  }
-  
-  nav ul li {
-    margin: 5px;
-  }
-  
-  .nav-my-thermostat {
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
-  }
-}
-
 nav {
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 1000;
+  background-color: #56c0ee; /* Added background to nav */
 }
 
+/* Desktop Styles (unchanged from yours) */
 nav ul {
   list-style-type: none;
-  background-color: #56c0ee;
   display: flex;
   padding: 0;
+  height: 60px;
   align-items: center;
-  flex-wrap: wrap; /* Allows items to wrap on mobile */
-  min-height: 60px; /* Changed from fixed height */
+  margin: 0;
+  background-color: #56c0ee;
 }
 
 nav ul li {
   margin: 0 10px;
 }
 
-/* Target the last two items */
-nav ul li.nav-right {
-  margin-left: auto;
+.nav-my-thermostat {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+nav ul li a {
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  border-radius: 5px;
+  background-color: rgb(47, 158, 255);
+}
+
+/* Hamburger Button - Hidden on Desktop */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  padding: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* Show hamburger on mobile */
+  .hamburger {
+    display: block;
+    z-index: 1001;
+  }
+  
+  /* Transform hamburger to X when active */
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+  
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+  
+  /* Hide menu by default on mobile */
+  nav ul {
+    display: none;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    padding: 20px 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Show menu when active */
+  nav ul.active {
+    display: flex;
+  }
+  
+  /* Stack all items vertically on mobile */
+  nav ul li,
+  .nav-my-thermostat {
+    width: 100%;
+    margin: 0;
+    display: block;
+    text-align: center;
+  }
+  
+  .nav-my-thermostat {
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  nav ul li a {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Remove hover effect on mobile tap */
+  nav ul li a:hover {
+    background-color: rgba(47, 158, 255, 0.8);
+  }
 }
 
 .top {

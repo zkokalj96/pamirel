@@ -14,16 +14,56 @@
   <img src=logo.png class="background-image" alt="">
 <div class="content">
   <nav>
-  <ul>
-    <li><a href="index.html">greetings</a></li>
-    <li><a href="index.html">and</a></li>
-    <li><a href="index.html">salutations</a></li>
-    <li class="nav-right"><a href="my-thermostat.html">My Thermostat</a></li>
-    <li class="nav-right"><a href="my-thermostat-documentation.html">My Thermostat Documentation</a></li>
-  </ul>
-</nav>
+    <!-- Mobile Hamburger Button (only visible on mobile) -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <ul id="nav-menu">
+      <li><a href="index.html">greetings</a></li>
+      <li><a href="index.html">and</a></li>
+      <li><a href="index.html">salutations</a></li>
+      
+      <div class="nav-my-thermostat">
+        <li><a href="my-thermostat.html">My Thermostat</a></li>
+        <li><a href="my-thermostat-documentation.html">My Thermostat Documentation</a></li>
+      </div>
+    </ul>
+  </nav>
 
 </div>
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('nav-menu');
+    const hamburger = document.querySelector('.hamburger');
+    
+    // Toggle menu visibility
+    menu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+    
+    // Close menu when clicking a link (optional)
+    const links = menu.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('active');
+        hamburger.classList.remove('active');
+      });
+    });
+  }
+
+  // Close menu when clicking outside (optional)
+  document.addEventListener('click', (event) => {
+    const menu = document.getElementById('nav-menu');
+    const hamburger = document.querySelector('.hamburger');
+    
+    if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+      menu.classList.remove('active');
+      hamburger.classList.remove('active');
+    }
+  });
+</script>
 </body>
 
 </html>
