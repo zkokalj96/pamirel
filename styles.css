@@ -62,30 +62,46 @@ nav ul {
   background-color: #56c0ee;
   display: flex;
   padding: 0;
-  height: 60px;
   align-items: center;
+  flex-wrap: wrap; /* Allows items to wrap on mobile */
+  min-height: 60px; /* Changed from fixed height */
 }
 
 nav ul li {
   margin: 0 10px;
 }
 
-.nav-my-thermostat {
-  display: flex;
-  flex-grow: 1;
-  justify-content: flex-end;
+/* Target the last two items */
+nav ul li.nav-right {
+  margin-left: auto;
 }
 
-nav ul li a {
-  display: block;
-  color: white;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-nav ul li a:hover {
-  border-radius: 5px;
-  background-color: rgb(47, 158, 255);
+/* Mobile Styles */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column; /* Stack vertically on mobile */
+    align-items: stretch; /* Full width items */
+    min-height: auto;
+    padding: 10px 0;
+  }
+  
+  nav ul li {
+    margin: 5px 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  nav ul li.nav-right {
+    margin-left: 0; /* Reset auto margin on mobile */
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 10px;
+  }
+  
+  nav ul li a {
+    padding: 12px 16px;
+    display: block;
+  }
 }
 
 .top {
